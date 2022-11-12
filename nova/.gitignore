@@ -1,0 +1,10 @@
+vendor/
+tmp/
+db-data/
+.DS_Store
+
+# test coverage
+coverage.out
+
+# sqlite db
+test.db

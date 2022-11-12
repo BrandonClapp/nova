@@ -1,0 +1,1 @@
+- Create a `core/seed` package that can be utilized from `/core/cmd` to seed database schema + data from the CLI
