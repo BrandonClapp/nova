@@ -17,7 +17,7 @@ var allowedHeaders = []string{
 // TODO: should be configurable
 var allowedOrigins = []string{
 	"http://localhost:3000",
-	"https://nova.io",
+	"https://brackets.gg",
 }
 
 // access control and  CORS middleware
