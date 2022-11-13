@@ -36,7 +36,7 @@ func AccessControlMiddleware(next http.Handler) http.Handler {
 
 		if isAllowed {
 			w.Header().Set("Access-Control-Allow-Origin", origin)
-			w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT")
+			w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE")
 			w.Header().Set("Access-Control-Allow-Headers", strings.Join(allowedHeaders[:], ","))
 			w.Header().Set("Access-Control-Allow-Credentials", "true")
 		}
