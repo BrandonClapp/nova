@@ -8,3 +8,5 @@ coverage.out
 
 # sqlite db
 test.db
+
+.vscode/
