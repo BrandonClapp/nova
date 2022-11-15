@@ -6,6 +6,8 @@ import (
 	"github.com/brandonclapp/nova/data"
 )
 
+// TODO: Extend this to include other properties, such as
+// First Name, Last Name, City, State, Zip
 // User is the identity package representation of a user.
 type User struct {
 	data.GormModel
@@ -53,4 +55,17 @@ func (user *User) GetUserByEmail(email string) *User {
 	}
 
 	return u
+}
+
+// GetUserByEmail gets the user from the database by email address.
+func (user *User) Create(u *User) error {
+	// var u *User
+	// tx := data.DB.Preload("Roles").Where("Email = ?", email).First(&u)
+
+	// if tx.Error != nil {
+	// 	return nil
+	// }
+
+	// return u
+	return nil
 }

@@ -3,27 +3,28 @@ package auth
 import (
 	"net/http"
 
-	"github.com/brandonclapp/nova/auth"
 	coreHttp "github.com/brandonclapp/nova/http"
 	"github.com/brandonclapp/nova/identity"
 )
 
 func GetUsersHandler(w http.ResponseWriter, r *http.Request) {
-	// Requires admin
-	user, err := auth.GetContextUser(r.Context())
-
-	// If user is unauthenticated
-	if err != nil {
-		coreHttp.WriteJsonResponse(w, "Unauthorized", http.StatusUnauthorized)
-		return
-	}
-
-	// If user is not system admin
-	if !auth.IsSystemAdmin(user) {
-		coreHttp.WriteJsonResponse(w, "Unauthorized", http.StatusUnauthorized)
-		return
-	}
-
 	users, _ := identity.Users.All()
 	coreHttp.WriteJsonResponse(w, &users, http.StatusOK)
+}
+
+func CreateNewUser(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "POST" {
+		coreHttp.WriteJsonResponse(w, "method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	var user *identity.User
+	coreHttp.ParseBody(w, r, &user)
+
+	err := identity.Users.Create(user)
+
+	if err != nil {
+		coreHttp.WriteJsonResponse(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 }
