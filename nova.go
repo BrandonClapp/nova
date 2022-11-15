@@ -1,4 +1,4 @@
-package nova
+package main
 
 import (
 	"log"

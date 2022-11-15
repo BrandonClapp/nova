@@ -7,6 +7,7 @@ package auth
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/brandonclapp/nova/identity"
 	"github.com/brandonclapp/nova/sessions"
@@ -27,4 +28,18 @@ func GetContextUser(ctx context.Context) (*identity.User, error) {
 	}
 
 	return nil, fmt.Errorf("no user on context")
+}
+
+func IsSystemAdmin(user *identity.User) bool {
+	if user == nil {
+		return false
+	}
+
+	for _, role := range user.Roles {
+		if role.Context == "" && strings.ToLower(role.DisplayName) == "system admin" {
+			return true
+		}
+	}
+
+	return false
 }

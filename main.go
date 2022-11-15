@@ -1,4 +1,4 @@
-package nova
+package main
 
 import (
 	"github.com/brandonclapp/nova/data"
