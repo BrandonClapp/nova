@@ -1,30 +1,13 @@
 package auth
 
-// import (
-// 	"context"
+import (
+	"net/http"
 
-// 	"github.com/brandonclapp/nova/identity"
-// 	"github.com/brandonclapp/nova/graph/model"
-// )
+	coreHttp "github.com/brandonclapp/nova/http"
+	"github.com/brandonclapp/nova/identity"
+)
 
-// func Users(ctx context.Context) ([]*model.User, error) {
-// 	users, err := identity.Users.All()
-// 	if err != nil {
-// 		return nil, err
-// 	}
-
-// 	modelUsers := make([]*model.User, len(users))
-// 	for i, user := range users {
-// 		modelUsers[i] = &model.User{
-// 			ID:          user.ID,
-// 			Name:        user.Name,
-// 			Email:       user.Email,
-// 			IsActive:    user.IsActive,
-// 			IsConfirmed: user.IsConfirmed,
-// 			CreatedAt:   user.CreatedAt,
-// 			LastAuth:    user.LastAuth,
-// 		}
-// 	}
-
-// 	return modelUsers, nil
-// }
+func GetUsersHandler(w http.ResponseWriter, r *http.Request) {
+	users, _ := identity.Users.All()
+	coreHttp.WriteJsonResponse(w, &users, http.StatusOK)
+}

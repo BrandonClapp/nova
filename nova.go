@@ -1,4 +1,4 @@
-package main
+package nova
 
 import (
 	"log"
@@ -82,4 +82,5 @@ func registerRoutes(nova *Nova) {
 	nova.Router.HandleFunc("/auth/current-user", authHandlers.CurrentUserHandler)
 	nova.Router.HandleFunc("/auth/login", authHandlers.LoginHandler)
 	nova.Router.HandleFunc("/auth/logout", authHandlers.LogoutHandler)
+	nova.Router.HandleFunc("/auth/users", authHandlers.GetUsersHandler)
 }
