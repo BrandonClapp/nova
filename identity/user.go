@@ -1,6 +1,7 @@
 package identity
 
 import (
+	"errors"
 	"time"
 
 	"github.com/brandonclapp/nova/data"
@@ -59,13 +60,14 @@ func (user *User) GetUserByEmail(email string) *User {
 
 // GetUserByEmail gets the user from the database by email address.
 func (user *User) Create(u *User) error {
-	// var u *User
-	// tx := data.DB.Preload("Roles").Where("Email = ?", email).First(&u)
+	var existing User
+	result := data.DB.First(&existing, "Email = ?", u.Email)
+	if result.RowsAffected == 0 {
+		if tx := data.DB.Create(&u); tx.Error != nil {
+			panic(tx.Error)
+		}
+		return nil
+	}
 
-	// if tx.Error != nil {
-	// 	return nil
-	// }
-
-	// return u
-	return nil
+	return errors.New("User with email aleady exists")
 }

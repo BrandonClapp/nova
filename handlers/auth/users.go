@@ -7,12 +7,26 @@ import (
 	"github.com/brandonclapp/nova/identity"
 )
 
-func GetUsersHandler(w http.ResponseWriter, r *http.Request) {
+func UsersHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "GET" {
+		getUsersHandler(w, r)
+		return
+	}
+
+	if r.Method == "POST" {
+		createNewUser(w, r)
+		return
+	}
+
+	w.WriteHeader(http.StatusMethodNotAllowed)
+}
+
+func getUsersHandler(w http.ResponseWriter, r *http.Request) {
 	users, _ := identity.Users.All()
 	coreHttp.WriteJsonResponse(w, &users, http.StatusOK)
 }
 
-func CreateNewUser(w http.ResponseWriter, r *http.Request) {
+func createNewUser(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "POST" {
 		coreHttp.WriteJsonResponse(w, "method not allowed", http.StatusMethodNotAllowed)
 		return
@@ -27,4 +41,6 @@ func CreateNewUser(w http.ResponseWriter, r *http.Request) {
 		coreHttp.WriteJsonResponse(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+
+	coreHttp.WriteJsonResponse(w, &user, http.StatusOK)
 }

@@ -83,6 +83,5 @@ func registerRoutes(nova *Nova) {
 	nova.Router.HandleFunc("/auth/login", authHandlers.LoginHandler)
 	nova.Router.HandleFunc("/auth/logout", authHandlers.LogoutHandler)
 
-	nova.Router.HandleFunc("/auth/users", auth.AsSystemAdmin(authHandlers.GetUsersHandler))
-	nova.Router.HandleFunc("/auth/users", auth.AsSystemAdmin(authHandlers.CreateNewUser))
+	nova.Router.HandleFunc("/auth/users", auth.AsSystemAdmin(authHandlers.UsersHandler))
 }
